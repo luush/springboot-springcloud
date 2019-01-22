@@ -1,0 +1,28 @@
+server:
+  port: 20015
+eureka:
+  instance:
+    hostname: localhost
+#    ip-address: 192.168.3.36
+  client:
+      service-url:
+        defaultZone: http://192.168.2.149:18888/eureka/
+      healthcheck:
+        enabled: true
+    #      defaultZone: http://${eureka.instance.hostname}:28888/eureka/
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+        #git仓库地址
+          uri: https://github.com/luush/open-config-center.git
+          #配置路径
+          search-paths: testconfig
+#          username: your username
+#          password: your passord
+#仓库分支
+      label: master

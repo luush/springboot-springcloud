@@ -1,0 +1,61 @@
+server:
+  port: 20013
+eureka:
+  instance:
+    hostname: localhost
+    lease-renewal-interval-in-seconds: 25
+    lease-expiration-duration-in-seconds: 60
+  client:
+    service-url:
+      defaultZone: http://192.168.2.149:18888/eureka/
+#      defaultZone: http://${eureka.instance.hostname}:28888/eureka/
+#    register-with-eureka: false
+#    fetch-registry: false
+
+spring:
+  application:
+    name: service-zuul
+  main:
+    allow-bean-definition-overriding: true
+
+zuul:
+  routes:
+    api-a:
+      path: /deliver/**
+      #假设这个服务deliver-order是一个集群，至少有两台机器，那么zuul将会负载均衡的去选择一台机器
+      serviceId: deliver-order
+    api-b:
+      path: /money/**
+      serviceId: money-trade
+    api-c:
+      path: /order/**
+      serviceId: order-center
+      #忽略掉带有inner的内部接口，内部接口是各个内部服务之间调用的，不曝露给外部客户端
+  ignored-patterns: /**/inner/**
+  #是否开启重试功能
+  retryable: true
+#  max:
+#    host:
+#      connections: 500
+#    host:
+#      socket-timeout-millis: 60000
+#      connect-timeout-millis: 60000
+
+ribbon:
+  ReadTimeout: 500
+  ConnectTimeout: 1000
+  #对当前服务的重试次数
+  MaxAutoRetries: 0
+  #切换相同Server的次数
+  MaxAutoRetriesNextServer: 1
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+

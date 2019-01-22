@@ -1,0 +1,22 @@
+server:
+  port: 28888
+
+spring:
+  profiles: peer1
+  application:
+    name: eureka-server-peer1
+eureka:
+  instance:
+    statusPageUrlPath: ${server.servletPath}/info
+    healthCheckUrlPath: ${server.servletPath}/health
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false

@@ -1,0 +1,19 @@
+server:
+  port: 28888
+eureka:
+  instance:
+    statusPageUrlPath: ${server.servletPath}/info
+    healthCheckUrlPath: ${server.servletPath}/health
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:18888/eureka/
+#  server:
+#    enable-self-preservation: false
+spring:
+  application:
+    name: eureka-server

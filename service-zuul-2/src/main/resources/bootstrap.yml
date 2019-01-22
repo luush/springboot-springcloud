@@ -1,0 +1,35 @@
+server:
+  port: 20010
+eureka:
+  instance:
+    hostname: localhost
+    lease-renewal-interval-in-seconds: 25
+    lease-expiration-duration-in-seconds: 60
+  client:
+    service-url:
+      defaultZone: http://192.168.2.149:18888/eureka/
+#    healthcheck:
+#      enabled: true
+
+#      defaultZone: http://${eureka.instance.hostname}:28888/eureka/
+#    register-with-eureka: false
+#    fetch-registry: false
+spring:
+  application:
+    name: service-zuul
+  cloud:
+    config:
+      label: master
+      profile: servicezuul_test
+#      uri: http://localhost:20012/
+      discovery:
+        enabled: true
+        serviceId: config-server
+#  profiles:
+#    active: test
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    service-url:
+#      defaultZone: http://${eureka.instance.hostname}:28888/eureka/

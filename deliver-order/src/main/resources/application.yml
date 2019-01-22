@@ -1,0 +1,14 @@
+server:
+  port: 20002
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://192.168.2.149:18888/eureka/
+    #   defaultZone: http://${eureka.instance.hostname}:28888/eureka/
+spring:
+  application:
+    name: deliver-order

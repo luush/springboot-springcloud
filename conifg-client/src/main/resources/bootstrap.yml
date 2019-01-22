@@ -1,0 +1,18 @@
+server:
+  port: 20014
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      label: master
+      profile: test1
+      uri: http://localhost:20012/
+#  profiles:
+#    active: test
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    service-url:
+#      defaultZone: http://${eureka.instance.hostname}:28888/eureka/
